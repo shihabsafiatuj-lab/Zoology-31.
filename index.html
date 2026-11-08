@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="bn" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HSC Biology Chapter 6 - Interactive Quiz (40 Questions)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .print-only {
+                display: block !important;
+            }
+            .print-white-bg {
+                background-color: white !important;
+                color: black !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+        .print-only {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen transition-colors duration-300 font-sans flex flex-col justify-between">
+
+    <!-- Top Bar / Navbar -->
+    <header class="w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 py-4 px-6 sticky top-0 z-50 shadow-sm no-print">
+        <div class="max-w-5xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-indigo-600 text-white p-2 rounded-xl font-bold text-lg shadow-md">🧬</div>
+                <div>
+                    <h1 class="font-bold text-lg text-slate-800 dark:text-white">জীববিজ্ঞান ২য় পত্র - অধ্যায় ৬</h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Zoology-31: বর্জ্য ও নিষ্কাশন  Total mcq: 40 </p>
+                </div>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div id="nav-roll-badge" class="hidden text-xs bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 text-indigo-600 dark:text-indigo-400 font-medium px-3 py-1.5 rounded-full">
+                    রোল: <span id="display-user-roll">-----</span>
+                </div>
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition duration-200 focus:outline-none">
+                    <svg id="theme-icon-light" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    <svg id="theme-icon-dark" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-4xl w-full mx-auto px-4 py-8 flex-grow flex flex-col justify-center">
+
+        <!-- SCREEN 1: ROLL VERIFICATION -->
+        <section id="screen-auth" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-lg transition duration-300">
+            <div class="text-center max-w-md mx-auto space-y-4">
+                <div class="w-16 h-16 bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 rounded-2xl mx-auto flex items-center justify-center text-2xl font-bold shadow-inner">
+                    🎓
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-white">পরীক্ষার্থী যাচাইকরণ</h2>
+                <p class="text-sm text-slate-600 dark:text-slate-400">অংশগ্রহণ করতে আপনার নির্ধারিত ৫-অক্ষরের (৫-সংখ্যার) স্টুডেন্ট রোল নম্বরটি নিচে প্রবেশ করান। Time : 45 minutes</p>
+                
+                <form id="auth-form" class="mt-6 space-y-4">
+                    <div>
+                        <input type="text" id="roll-input" maxlength="5" placeholder="যেমন: 12345" class="w-full px-4 py-3 text-center text-xl tracking-widest font-bold bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-slate-800 dark:text-white" required>
+                    </div>
+                    <div id="auth-error" class="text-rose-500 text-xs font-medium hidden"></div>
+                    <button type="submit" class="w-full py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition duration-200">
+                        পরীক্ষায় প্রবেশ করুন
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: QUIZ INTERFACE (ALL 40 QUESTIONS TOGETHER) -->
+        <section id="screen-quiz" class="hidden space-y-6">
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm flex flex-wrap justify-between items-center gap-4 sticky top-20 z-40 backdrop-blur-md bg-opacity-95 dark:bg-opacity-95">
+                <div class="flex items-center space-x-2">
+                    <span class="text-sm font-medium text-slate-700 dark:text-slate-300">মোট প্রশ্ন: ৪০টি</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 px-3 py-1 rounded-full font-medium border border-rose-200 dark:border-rose-800 animate-pulse" id="timer-display">বাকি সময়: ৪০:০০</span>
+                </div>
+            </div>
+
+            <div id="questions-container" class="space-y-6">
+                <!-- Dynamically injected all 40 questions -->
+            </div>
+
+            <!-- Submit Button for all 40 questions -->
+            <div class="pt-4 pb-10 text-center">
+                <button id="submit-quiz-btn" class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white text-lg font-bold rounded-2xl shadow-lg transition duration-200">
+                    সকল উত্তর জমা দিন (Submit Quiz)
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: RESULT & SOLVE SHEET -->
+        <section id="screen-result" class="hidden space-y-6">
+            <!-- Score Card Summary -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 shadow-lg text-center space-y-4 print-white-bg">
+                <div class="w-16 h-16 bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 rounded-full mx-auto flex items-center justify-center text-3xl font-bold shadow-inner">
+                    🏆
+                </div>
+                <h2 class="text-2xl font-bold text-slate-800 dark:text-white">কুইজ মূল্যায়ন সম্পন্ন!</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">স্টুডেন্ট রোল: <span id="res-roll" class="font-bold text-slate-700 dark:text-slate-300">-----</span></p>
+                
+                <div class="grid grid-cols-3 gap-4 max-w-md mx-auto pt-4 pb-2">
+                    <div class="bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <div class="text-xs text-slate-500">প্রাপ্ত নম্বর</div>
+                        <div id="res-score" class="text-xl font-bold text-indigo-600 dark:text-indigo-400">০/৪০</div>
+                    </div>
+                    <div class="bg-emerald-50 dark:bg-emerald-950/40 p-4 rounded-xl border border-emerald-200 dark:border-emerald-800">
+                        <div class="text-xs text-emerald-600 dark:text-emerald-400">সঠিক</div>
+                        <div id="res-correct" class="text-xl font-bold text-emerald-600 dark:text-emerald-400">০</div>
+                    </div>
+                    <div class="bg-rose-50 dark:bg-rose-950/40 p-4 rounded-xl border border-rose-200 dark:border-rose-800">
+                        <div class="text-xs text-rose-600 dark:text-rose-400">ভুল</div>
+                        <div id="res-wrong" class="text-xl font-bold text-rose-600 dark:text-rose-400">০</div>
+                    </div>
+                </div>
+
+                <div class="pt-4 flex flex-wrap justify-center gap-4 no-print">
+                    <button id="download-solve-btn" class="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl shadow-md transition duration-200 flex items-center space-x-2 cursor-pointer">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span>সলভ শিট প্রিন্ট/ডাউনলোড করুন</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Solve Sheet Container (Pure White Background when printing/viewing) -->
+            <div id="solve-sheet-section" class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-lg space-y-6 print-white-bg">
+                <div class="border-b border-slate-200 dark:border-slate-800 pb-4 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white">বিস্তারিত সলভ শিট (Solve Sheet)</h3>
+                        <p class="text-xs text-slate-500">এইচএসসি জীববিজ্ঞান ২য় পত্র - অধ্যায় ৬</p>
+                    </div>
+                    <div class="text-right text-xs text-slate-500">
+                        রোল: <span id="sheet-roll" class="font-bold text-slate-700 dark:text-slate-300">-----</span>
+                    </div>
+                </div>
+
+                <div id="solve-list" class="space-y-6">
+                    <!-- Dynamic Solve Items inserted via JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-4 text-xs text-slate-400 dark:text-slate-600 border-t border-slate-200 dark:border-slate-800 no-print">
+        &copy; 2026 HSC Biology Interactive Quiz System. All rights reserved.
+    </footer>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        // Pre-registered random 5-digit rolls
+        const VALID_ROLLS = ["48291", "63104", "75923", "19487", "82635", "30491", "91742", "56830", "24198", "60374"];
+
+        // All 40 rigorous MCQ questions with accurate explanations & sequential numbering
+        const QUESTIONS = [
+            {
+                q: "বৃক্কের গাঠনিক ও কার্যিক একককে বলে-",
+                options: ["নিউরন", "নেফ্রন", "অ্যালভিওলাস", "ল্যাকুনা"],
+                ans: 1,
+                exp: "বৃক্কের গাঠনিক ও কার্যিক একক হলো নেফ্রন।"
+            },
+            {
+                q: "প্রতিটি বৃক্কে নেফ্রন থাকে-",
+                options: ["প্রায় ৮ থেকে ৯ লক্ষ", "প্রায় ১০ থেকে ১২ লক্ষ", "প্রায় ১২ থেকে ১৪ লক্ষ", "প্রায় ১৩ থেকে ১৫ লক্ষ"],
+                ans: 1,
+                exp: "মানুষের প্রতিটি বৃক্কে প্রায় ১০ থেকে ১২ লক্ষ নেফ্রন থাকে।"
+            },
+            {
+                q: "বৃক্কে বিদ্যমান কোনটি?",
+                options: ["নেফ্রন", "নিউরন", "মূত্রথলি", "ল্যাঙ্গারহ্যান্সের দ্বীপ"],
+                ans: 0,
+                exp: "বৃক্কের মূল কার্যকরী একক হলো নেফ্রন।"
+            },
+            {
+                q: "বৃক্কের মাধ্যমে রক্ত হতে ২৫০ ঘন সেমি. তরল পদার্থ পরিষ্কৃত হতে কত সময় প্রয়োজন?",
+                options: ["১ মিনিট", "১ সেকেন্ড", "২ মিনিট", "২ সেকেন্ড"],
+                ans: 2,
+                exp: "যেহেতু ১ মিনিটে ১২৫ ঘন সেমি. তরল পরিষ্কৃত হয়, সেহেতু ২৫০ ঘন সেমি. পরিষ্কৃত হতে ২ মিনিট সময় লাগে।"
+            },
+            {
+                q: "প্রতি মিনিটে কতটুকু মূত্র সৃষ্টি হয়?",
+                options: ["১ ঘন সে.মি.", "১ ঘন মি.মি.", "১২৫ ঘন সে.মি.", "১২৫ ঘন মি.মি."],
+                ans: 0,
+                exp: "মানবদেহে প্রতি মিনিটে স্বাভাবিকভাবে প্রায় ১ ঘন সেমি. মূত্র সৃষ্টি হয়।"
+            },
+            {
+                q: "কি ধরনের এপিথেলিয়াম (epithelium) বোমম্যান্স ক্যাপসুল (Bowman's capsule) গঠন করে?",
+                options: ["Cuboidal", "Columnar", "Stratified", "Squamous"],
+                ans: 3,
+                exp: "বোমম্যান্স ক্যাপসুলের প্যারিটাল স্তর সাধারণ আইঁশাকার বা স্কোয়ামাস (Squamous) এপিথেলিয়াম দ্বারা গঠিত।"
+            },
+            {
+                q: "পোডোসাইট কি?",
+                options: ["বিশেষ ধরনের প্রবর্ধনযুক্ত গ্রন্থি", "বিশেষ ধরনের প্রবর্ধনযুক্ত কোষ", "বিশেষ ধরনের পরিবর্তিত কোষ", "বিশেষ ধরনের রূপান্তরিত গ্রন্থি"],
+                ans: 1,
+                exp: "পোডোসাইট হলো বোমম্যান্স ক্যাপসুলের ভিসেরাল স্তরে অবস্থিত বিশেষ ধরনের প্রবর্ধনযুক্ত কোষ।"
+            },
+            {
+                q: "কয়েকটি সংগ্রাহী নালি মিলিত হয়ে কোনটি গঠন করে?",
+                options: ["Duct of Bellini", "Major Calyx", "Minor Calyx", "Renal Pelvis"],
+                ans: 0,
+                exp: "কয়েকটি সংগ্রাহী নালি মিলিত হয়ে ডাক্ট অব বেলিনি (Duct of Bellini) গঠন করে।"
+            },
+            {
+                q: "হেনলির লুপের অবস্থান বৃক্কের কোথায়?",
+                options: ["বৃক্কীয় নালীকায়", "রেনাল করপাসলে", "এফারেণ্ট ধমনিকাতে", "ইফারেন্ট ধমনিকাতে"],
+                ans: 0,
+                exp: "হেনলির লুপ বৃক্কীয় নালীর (Renal tubule) একটি গুরুত্বপূর্ণ অংশ।"
+            },
+            {
+                q: "প্রতিটি রেনাল টিউবু্লস কতটুকু লম্বা?",
+                options: ["৩ মি.মি.", "৩ সে.মি.", "৩ মি.", "৩ মাইক্রোমি."],
+                ans: 1,
+                exp: "প্রতিটি রেনাল টিউবু্লস লম্বায় প্রায় ৩ সেন্টিমিটার হয়ে থাকে।"
+            },
+            {
+                q: "পোডোসাইট কোষ কোথায় পাওয়া যায়?",
+                options: ["ডিসটাল প্যাঁচানো নালিকায়", "হেনলির লুপে", "প্রক্সিমাল প্যাঁচানো নালিকায়", "বোমম্যান্স ক্যাপসুলে"],
+                ans: 3,
+                exp: "বোমম্যান্স ক্যাপসুলের ভিসেরাল স্তরে পোডোসাইট কোষ পাওয়া যায়।"
+            },
+            {
+                q: "রেনাল করপাসলে কোন ধরনের কোষ দেখা যায়?",
+                options: ["নিডোসাইট", "পোডোসাইট", "লিফফোসাইট", "অস্টিওসাইট"],
+                ans: 1,
+                exp: "রেনাল করপাসলের বোমম্যান্স ক্যাপসুলে পোডোসাইট কোষ দেখা যায়।"
+            },
+            {
+                q: "কোনটি কোনটি মিলে ম্যাকুলা ডেনসা গঠিত হয়?",
+                options: ["নিকটবর্তী প্যাঁচানো নালিকা-ইফারেন্ট ধমনিকা", "দূরবর্তী প্যাঁচানো নালিকা-ইফারেন্ট ধমনিকা", "নিকটবর্তী প্যাঁচানো নালিকা-অ্যাফারেন্ট ধমনিকা", "দূরবর্তী প্যাঁচানো নালিকা-অ্যাফারেন্ট ধমনিকা"],
+                ans: 3,
+                exp: "দূরবর্তী প্যাঁচানো নালিকা ও অ্যাফারেন্ট ধমনিকার সংযোগস্থলে ম্যাকুলা ডেনসা গঠিত হয়।"
+            },
+            {
+                q: "নেফ্রনের কাজ নয় কোনটি?",
+                options: ["নির্বাচনমূলক পুনঃশোষণ", "সক্রিয় ক্ষরণ", "যৌগ সংশ্লেষণ", "রক্তচাপ নিয়ন্ত্রণ"],
+                ans: 3,
+                exp: "রক্তচাপ নিয়ন্ত্রণ বৃক্কের সামগ্রিক কাজ হলেও নেফ্রনের মূল কাজ ফিল্ট্রেশন, পুনঃশোষণ ও ক্ষরণ।"
+            },
+            {
+                q: "মানবদেহে মূত্র নিষ্কাশনের সঠিক গতিপথ কোনটি?",
+                options: ["পেলভিস → ইউরেটার → মূত্রথলি → মূত্রনালী → নির্গমন", "পেলভিস → মূত্রথলি → ইউরেটার → মূত্রনালী → নির্গমন", "পেলভিস → মূত্রথলি → মূত্রনালী → ইউরেটার → নির্গমন", "পেলভিস → ইউরেটার → মূত্রনালী → মূত্রথলি → নির্গমন"],
+                ans: 0,
+                exp: "মূত্র উৎপাদনের পর পেলভিস থেকে ইউরেটার হয়ে মূত্রথলি ও মূত্রনালী দিয়ে নিষ্ক্রান্ত হয়।"
+            },
+            {
+                q: "মানুষের প্রধান নাইট্রোজেন গঠিত বর্জ্য পদার্থের মধ্যে কোনটির পরিমাণ সর্বাধিক?",
+                options: ["ইউরিয়া", "ইউরিক এসিড", "অ্যামোনিয়া", "ক্রিয়েটিনিন"],
+                ans: 0,
+                exp: "মানুষের প্রধান নাইট্রোজেনঘটিত রেচন বর্জ্য ইউরিয়া এবং এর পরিমাণ সর্বাধিক।"
+            },
+            {
+                q: "মানুষের প্রধান নাইট্রোজেন গঠিত রেচন বর্জ্য নয় কোনটি?",
+                options: ["অ্যামোনিয়া", "হিপনোটক্সিন", "ক্রিয়েটিনিন", "ইউরিয়া"],
+                ans: 1,
+                exp: "হিপনোটক্সিন কোনো প্রধান রেচন বর্জ্য পদার্থ নয়।"
+            },
+            {
+                q: "কোথায় ইউরিয়া তৈরি হয়?",
+                options: ["যকৃতে", "বৃক্কে", "অগ্নাশয়ে", "প্লীহাতে"],
+                ans: 0,
+                exp: "অরনিথিন চক্রের মাধ্যমে যকৃতে ইউরিয়া সংশ্লেষিত বা তৈরি হয়।"
+            },
+            {
+                q: "গ্লোমেরুলার ফিলট্রেটে কোনটি অনুপস্থিত?",
+                options: ["প্রোটিন", "গ্লুকোজ", "আয়ন", "ইউরিয়া"],
+                ans: 0,
+                exp: "বৃহৎ অণুবিশিষ্ট প্রোটিন গ্লোমেরুলাস ভেদ করে ফিলট্রেটে আসতে পারে না।"
+            },
+            {
+                q: "গ্লোমেরুলার ছাঁকন নিয়ন্ত্রণকারী ছাঁকনি গঠনকারী স্তর নয় কোনটি?",
+                options: ["গ্লোমেরুলাস রক্তনালীর এন্ডোথেলিয়াম", "গ্লোমেরুলাস রক্তনালীর বেসমেন্ট মেমব্রেন", "বোমম্যান্স ক্যাপসুলের এন্ডোথেলিয়াম", "বোমম্যান্স ক্যাপসুলের বেসমেন্ট মেমব্রেন"],
+                ans: 3,
+                exp: "ছাঁকনি গঠনে বোমম্যান্স ক্যাপসুলের বেসমেন্ট মেমব্রেন সরাসরি অংশ নেয় না।"
+            },
+            {
+                q: "কোন চক্রের মাধ্যমে যকৃতে ইউরিয়া তৈরি হয়?",
+                options: ["কার্বন চক্র", "অরনিথিন চক্র", "ক্রেবস চক্র", "নাইট্রোজেন চক্র"],
+                ans: 1,
+                exp: "যকৃতে ইউরিয়া উৎপত্তির প্রধান প্রক্রিয়া হলো অরনিথিন চক্র।"
+            },
+            {
+                q: "গ্লোমেরুলাস পরিস্রুত তরল PCT এ থাকা কালে অসমোলারিটি কত থাকে?",
+                options: ["100 mOsm/L", "300 mOsm/L", "500 mOsm/L", "1000 mOsm/L"],
+                ans: 1,
+                exp: "প্রক্সিমাল প্যাঁচানো নালিকায় (PCT) পরিস্রুত তরলের অসমোলারিটি প্রায় ৩০০ mOsm/L থাকে।"
+            },
+            {
+                q: "লুপ অব হেনলির ঊর্ধ্বগামী বাহুতে মূত্রের অসমোলারিটি কত থাকে?",
+                options: ["100 mOsm/L", "300 mOsm/L", "500 mOsm/L", "1000 mOsm/L"],
+                ans: 0,
+                exp: "হেনলির লুপের ঊর্ধ্বগামী বাহু থেকে আয়ন শোষিত হওয়ায় এর অসমোলারিটি কমে ১০০ mOsm/L হয়।"
+            },
+            {
+                q: "মূত্র ত্যাগের পরিমাণ এক দিনে কত মিলিলিটারের কম হলে তাকে অ্যানিউরিয়া বলে?",
+                options: ["1000", "600", "500", "150"],
+                ans: 3,
+                exp: "দৈনিক মূত্রত্যাগের পরিমাণ ১৫০ মিলিলিটারের কম হলে তাকে অ্যানিউরিয়া বলে।"
+            },
+            {
+                q: "মূত্র প্রবাহের ক্ষেত্রে নিচের কোনটি সঠিক?",
+                options: [
+                    "বৃক্কীয় নালিকা → ডাক্ট অব বেলিনি → সংগ্রাহক নালিকা → ইউরেটার",
+                    "সংগ্রাহক নালিকা → বৃক্কীয় নালিকা → ডাক্ট অব বেলিনি → ইউরেটার",
+                    "বৃক্কীয় নালিকা → সংগ্রাহক নালিকা → ডাক্ট অব বেলিনি → ইউরেটার",
+                    "বৃক্কীয় নালিকা → সংগ্রাহক নালিকা → ইউরেটার → ডাক্ট অব বেলিনি"
+                ],
+                ans: 2,
+                exp: "সঠিক প্রবাহ পথ: বৃক্কীয় নালিকা → সংগ্রাহক নালিকা → ডাক্ট অব বেলিনি → ইউরেটার।"
+            },
+            {
+                q: "মানবদেহের দুটি বৃক্কের মাধ্যমে প্রতি মিনিটে কি পরিমাণ রক্ত প্রবাহিত হয়?",
+                options: ["1200 L", "1200 cc", "120 cc", "12 L"],
+                ans: 1,
+                exp: "মানবদেহের উভয় বৃক্কের মাধ্যমে প্রতি মিনিটে প্রায় ১২০০ সিসি (cc) রক্ত প্রবাহিত হয়।"
+            },
+            {
+                q: "নেফ্রনের কোন অংশে অধিকাংশ পুনঃশোষণ ঘটে?",
+                options: ["প্রক্সিমাল প্যাঁচানো নালিকায়", "হেনলির লুপে", "ডিসটাল প্যাঁচানো নালিকায়", "সংগ্রাহক নালিকায়"],
+                ans: 0,
+                exp: "প্রক্সিমাল প্যাঁচানো নালিকায় (PCT) গ্লোমেরুলার ফিলট্রেটের সিংহভাগ পুনঃশোষণ ঘটে।"
+            },
+            {
+                q: "নিচের কোনটি ডাইইউরেটিক দ্রব্য নয়?",
+                options: ["দুধ", "পানি", "চা", "কফি"],
+                ans: 0,
+                exp: "পানি, চা ও কফি ডাইইউরেটিক বা মূত্রবর্ধক হলেও দুধ সাধারণ পানীয়।"
+            },
+            {
+                q: "নিচের কোনটি মূত্রের বৈশিষ্ট্য নয়?",
+                options: ["আয়তন: 0.5 - 2.5 L/day", "ইউরোক্রোম থাকায় ঝাঁঝালো গন্ধ", "pH : 5 - 6.5", "আপেক্ষিক গুরুত্ব: 1.008 - 1.030"],
+                ans: 1,
+                exp: "মূত্রের ঝাঁঝালো গন্ধ ইউরোক্রোমের কারণে নয়, বরং ইউরিয়া ভেঙে অ্যামোনিয়া তৈরির কারণে হয়।"
+            },
+            {
+                q: "মূত্রের খড় বর্ণের জন্য দায়ী উপাদান কোনটি?",
+                options: ["সোডিয়াম", "ইউরিয়া", "ইউরোক্রোম", "ক্রিয়েটিনিন"],
+                ans: 2,
+                exp: "মূত্রের হালকা হলুদ বা খড় রঙের জন্য ইউরোক্রোম নামক রঞ্জক পদার্থ দায়ী।"
+            },
+            {
+                q: "মূত্রের pH = কত?",
+                options: ["4.5", "6.5", "7.0", "8.5"],
+                ans: 1,
+                exp: "সাধারণ মানবমূত্র সামান্য অম্লীয় এবং এর pH মান প্রায় 6.5।"
+            },
+            {
+                q: "মূত্রে বিদ্যমান নন-নাইট্রোজেনাস উপাদান কোনটি?",
+                options: ["ক্রিয়েটিনিন", "ইউরিক এসিড", "কিটোন বডিস", "ইউরিয়া"],
+                ans: 2,
+                exp: "কিটোন বডিস হলো মূত্রে বিদ্যমান একটি নন-নাইট্রোজেনাস জৈব পদার্থ।"
+            },
+            {
+                q: "মূত্রের উপাদান নয় কোনটি?",
+                options: ["ক্রিয়েটিনিন", "ইউরিক এসিড", "বিলিরুবিন", "ইউরোক্রোম"],
+                ans: 2,
+                exp: "স্বাভাবিক মূত্রে বিলিরুবিন থাকে না।"
+            },
+            {
+                q: "কোনটি মূত্রের নন-নাইট্রোজেনাস জৈব পদার্থ নয়?",
+                options: ["সাইট্রেট", "ল্যাকটেট", "কিটোন বডিস", "ইনডিকান"],
+                ans: 3,
+                exp: "ইনডিকান একটি নাইট্রোজেনাস উপাদান বা এর সাথে সম্পর্কিত যৌগ।"
+            },
+            {
+                q: "মানুষের মূত্রে নিম্নের শতকরা কত ভাগ অ্যামোনিয়াম পাওয়া যায়?",
+                options: ["0.04", "0.01", "0.35", "0.15"],
+                ans: 0,
+                exp: "মানুষের মূত্রে প্রায় ০.০৪ শতাংশ অ্যামোনিয়াম পাওয়া যায়।"
+            },
+            {
+                q: "মূত্রের সর্বোচ্চ ঘনত্ব কত mOsm/L হতে পারে?",
+                options: ["1000", "200", "1300", "1500"],
+                ans: 2,
+                exp: "মানবদেহের বৃক্কের মাধ্যমে মূত্রের সর্বোচ্চ ঘনত্ব প্রায় ১৩০০ mOsm/L পর্যন্ত হতে পারে।"
+            },
+            {
+                q: "নেফ্রনের নিকটবর্তী প্যাঁচানো নালীতে সংঘটিত হয়–\ni. ফিল্ট্রেশন\nii. পুনঃশোষণ\niii. ক্ষরণ\nনিচের কোনটি সঠিক?",
+                options: ["ii", "iii", "ii ও iii", "i, ii ও iii"],
+                ans: 3,
+                exp: "নিকটবর্তী প্যাঁচানো নালিকা বা PCT-তে বিভিন্ন পদার্থের পরিস্রাবণ, পুনঃশোষণ ও ক্ষরণ প্রক্রিয়াগুলো ঘটে।"
+            },
+            {
+                isKidneyStimulus: true
+            },
+            {
+                q: "চিত্রে প্রদর্শিত অঙ্গটি (বৃক্ক)—\ni. নিউরন নামক একক নিয়ে গঠিত\nii. নাইট্রোজেনজাত বর্জ্য পদার্থ অপসরণে ভূমিকা রাখে\niii. দেহে পানির ভারসাম্য রক্ষা করে\nনিচের কোনটি সঠিক?",
+                options: ["i ও ii", "i ও iii", "ii ও iii", "i, ii ও iii"],
+                ans: 2,
+                exp: "বৃক্ক নেফ্রন দ্বারা গঠিত, নিউরন দ্বারা নয়। তাই i নম্বর ভুল।"
+            },
+            {
+                isStimulusOnly: true
+            },
+            {
+                q: "উদ্দীপকে উল্লেখিত অঙ্গে ফিল্টার হয়—\ni. ইউরিয়া\nii. প্রোটিন\niii. শর্করা\nনিচের কোনটি সঠিক?",
+                options: ["i ও ii", "i ও iii", "ii ও iii", "i, ii ও iii"],
+                ans: 0,
+                exp: "বৃক্ক বা নেফ্রনে ইউরিয়া ও কিছু ক্ষুদ্র অণুবিশিষ্ট প্রোটিন ফিল্টার হলেও শর্করা ফিল্টার হয় না।"
+            },
+            {
+                q: "উদ্দীপকে উল্লেখিত অঙ্গের কাজ হলো—\ni. রক্ত চাপ নিয়ন্ত্রণ\nii. নাইট্রোজেন গঠিত বর্জ্য পদার্থ অপসারণ\niii. রেনিন এনজাইম ক্ষরণ\nনিচের কোনটি সঠিক?",
+                options: ["i ও ii", "i ও iii", "ii ও iii", "i, ii ও iii"],
+                ans: 3,
+                exp: "বৃক্ক রক্তচাপ নিয়ন্ত্রণ, রেচন বর্জ্য অপসারণ এবং রেনিন এনজাইম ক্ষরণ— তিনটি কাজই করে থাকে।"
+            }
+        ];
+
+        // State variables
+        let currentRoll = null;
+        let userAnswers = {}; 
+        let timerInterval = null;
+        let totalSeconds = 45 * 60; // 45 minutes countdown
+
+        // DOM Elements
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const authForm = document.getElementById('auth-form');
+        const rollInput = document.getElementById('roll-input');
+        const authError = document.getElementById('auth-error');
+        
+        const screenAuth = document.getElementById('screen-auth');
+        const screenQuiz = document.getElementById('screen-quiz');
+        const screenResult = document.getElementById('screen-result');
+
+        const navRollBadge = document.getElementById('nav-roll-badge');
+        const displayUserRoll = document.getElementById('display-user-roll');
+        const timerDisplay = document.getElementById('timer-display');
+        const questionsContainer = document.getElementById('questions-container');
+        const submitQuizBtn = document.getElementById('submit-quiz-btn');
+
+        const resRoll = document.getElementById('res-roll');
+        const resScore = document.getElementById('res-score');
+        const resCorrect = document.getElementById('res-correct');
+        const resWrong = document.getElementById('res-wrong');
+        const downloadSolveBtn = document.getElementById('download-solve-btn');
+        const sheetRoll = document.getElementById('sheet-roll');
+        const solveList = document.getElementById('solve-list');
+
+        // Theme Toggle Handler
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        } else {
+            htmlElement.classList.remove('dark');
+        }
+
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const roll = rollInput.value.trim();
+
+            if (roll.length !== 5 || !/^\d+$/.test(roll)) {
+                showError("অনুগ্রহ করে সঠিক ৫-অক্ষরের (সংখ্যার) স্টুডেন্ট রোল প্রবেশ করান।");
+                return;
+            }
+
+            if (!VALID_ROLLS.includes(roll)) {
+                showError("এই রোল নম্বরটি সিস্টেমে নিবন্ধিত নয়। সঠিক রোল দিয়ে চেষ্টা করুন।");
+                return;
+            }
+
+            currentRoll = roll;
+            
+            const existingResult = localStorage.getItem(`quiz_result_${currentRoll}`);
+            if (existingResult) {
+                const data = JSON.parse(existingResult);
+                userAnswers = data.answers;
+                showResultScreen();
+            } else {
+                startQuiz();
+            }
+        });
+
+        function showError(msg) {
+            authError.textContent = msg;
+            authError.classList.remove('hidden');
+        }
+
+        function startQuiz() {
+            screenAuth.classList.add('hidden');
+            screenQuiz.classList.remove('hidden');
+            navRollBadge.classList.remove('hidden');
+            displayUserRoll.textContent = currentRoll;
+
+            userAnswers = {};
+            totalSeconds = 45 * 60; // 45 minutes
+
+            renderAllQuestions();
+            startTimer();
+        }
+
+        function startTimer() {
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                if (totalSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    finishQuiz();
+                    return;
+                }
+                totalSeconds--;
+                const mins = Math.floor(totalSeconds / 60);
+                const secs = totalSeconds % 60;
+                timerDisplay.textContent = `বাকি সময়: ${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }, 1000);
+        }
+
+        function renderAllQuestions() {
+            questionsContainer.innerHTML = '';
+            const optionLetters = ['ক', 'খ', 'গ', 'ঘ'];
+            let mcqCounter = 1;
+
+            QUESTIONS.forEach((q, qIndex) => {
+                const qCard = document.createElement('div');
+                
+                if (q.isKidneyStimulus) {
+                    qCard.className = "bg-gradient-to-br from-indigo-50/70 to-blue-50/70 dark:from-indigo-950/40 dark:to-slate-900 border border-indigo-200 dark:border-indigo-800 rounded-2xl p-6 md:p-8 shadow-md text-center space-y-4";
+                    qCard.innerHTML = `
+                        <div class="space-y-3">
+                            <span class="inline-block px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded-full shadow-sm">উদ্দীপক (সৃজনশীল চিত্র)</span>
+                            <h4 class="font-bold text-slate-800 dark:text-white text-base md:text-lg">নিচের উদ্দীপকের চিত্রটি লক্ষ্য কর এবং ৩৮নং প্রশ্নের উত্তর দাও:</h4>
+                            
+                            <div class="flex justify-center my-4">
+                                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-inner border border-indigo-100 dark:border-indigo-900 inline-block text-center max-w-lg w-full">
+                                    <svg viewBox="0 0 500 480" class="w-full h-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
+                                        <defs>
+                                            <linearGradient id="kidneyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#e11d48"/>
+                                                <stop offset="50%" stop-color="#be123c"/>
+                                                <stop offset="100%" stop-color="#881337"/>
+                                            </linearGradient>
+                                            <linearGradient id="pyramidGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#9f1239"/>
+                                                <stop offset="100%" stop-color="#4c0519"/>
+                                            </linearGradient>
+                                            <linearGradient id="pelvisGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                                <stop offset="0%" stop-color="#cbd5e1"/>
+                                                <stop offset="100%" stop-color="#94a3b8"/>
+                                            </linearGradient>
+                                        </defs>
+
+                                        <text x="250" y="28" font-size="15" font-weight="bold" fill="#0f172a" text-anchor="middle" font-family="sans-serif">Anatomy of the Kidney</text>
+
+                                        <path d="M 150 240 Q 210 230, 240 220" fill="none" stroke="#93c5fd" stroke-width="26" stroke-linecap="round" opacity="0.8"/>
+                                        <path d="M 170 255 Q 220 240, 250 230" fill="none" stroke="#fca5a5" stroke-width="16" stroke-linecap="round" opacity="0.85"/>
+
+                                        <path d="M 215 230 Q 215 360, 225 435" fill="none" stroke="#d4b296" stroke-width="22" stroke-linecap="round"/>
+                                        <path d="M 218 240 Q 218 360, 224 430" fill="none" stroke="#e7d5c0" stroke-width="8" stroke-linecap="round"/>
+
+                                        <path d="M 230 50 C 350 30, 430 110, 440 230 C 450 360, 360 440, 270 430 C 230 425, 210 370, 215 300 C 220 250, 190 220, 210 170 C 220 120, 200 65, 230 50 Z" fill="url(#kidneyGrad)" stroke="#4c0519" stroke-width="3"/>
+
+                                        <path d="M 240 70 C 280 65, 330 90, 310 140 C 290 120, 260 100, 240 70 Z" fill="url(#pyramidGrad)"/>
+                                        <path d="M 330 85 C 380 90, 415 150, 385 200 C 360 170, 340 140, 330 85 Z" fill="url(#pyramidGrad)"/>
+                                        <path d="M 405 205 C 430 250, 415 320, 375 360 C 370 310, 380 250, 405 205 Z" fill="url(#pyramidGrad)"/>
+                                        <path d="M 320 380 C 360 395, 385 410, 350 430 C 330 415, 320 400, 320 380 Z" fill="url(#pyramidGrad)"/>
+                                        <path d="M 240 400 C 280 430, 300 400, 280 370 C 265 375, 250 385, 240 400 Z" fill="url(#pyramidGrad)"/>
+                                        <path d="M 235 90 C 250 140, 275 160, 295 150 C 270 180, 250 185, 235 90 Z" fill="url(#pyramidGrad)"/>
+
+                                        <path d="M 240 220 Q 280 200, 310 160 M 260 250 Q 290 230, 330 190 M 270 290 Q 320 280, 360 240 M 270 330 Q 300 320, 340 340" fill="none" stroke="url(#pelvisGrad)" stroke-width="12" stroke-linecap="round"/>
+
+                                        <text x="100" y="110" font-size="12" font-weight="bold" fill="#0f172a" font-family="sans-serif">Calyces</text>
+                                        <line x1="150" y1="105" x2="275" y2="150" stroke="#0f172a" stroke-width="1.5"/>
+                                        <line x1="150" y1="105" x2="285" y2="195" stroke="#0f172a" stroke-width="1.5"/>
+
+                                        <text x="90" y="240" font-size="12" font-weight="bold" fill="#0f172a" font-family="sans-serif">Renal Artery</text>
+                                        <line x1="165" y1="240" x2="215" y2="240" stroke="#0f172a" stroke-width="1.5"/>
+
+                                        <text x="95" y="300" font-size="12" font-weight="bold" fill="#0f172a" font-family="sans-serif">Renal Vein</text>
+                                        <line x1="165" y1="300" x2="225" y2="285" stroke="#0f172a" stroke-width="1.5"/>
+
+                                        <text x="110" y="405" font-size="12" font-weight="bold" fill="#0f172a" font-family="sans-serif">Ureter</text>
+                                        <line x1="150" y1="400" x2="215" y2="380" stroke="#0f172a" stroke-width="1.5"/>
+
+                                        <text x="390" y="130" font-size="12" font-weight="bold" fill="#0f172a" font-family="sans-serif">Renal Pelvis</text>
+                                        <line x1="385" y1="135" x2="310" y2="180" stroke="#0f172a" stroke-width="1.5"/>
+
+                                        <text x="410" y="325" font-size="12" font-weight="bold" fill="#0f172a" font-family="sans-serif">Medulla</text>
+                                        <line x1="405" y1="325" x2="340" y2="280" stroke="#0f172a" stroke-width="1.5"/>
+
+                                        <text x="400" y="415" font-size="12" font-weight="bold" fill="#0f172a" font-family="sans-serif">Cortex</text>
+                                        <line x1="395" y1="410" x2="360" y2="415" stroke="#0f172a" stroke-width="1.5"/>
+                                    </svg>
+                                    <div class="mt-4 pt-2 border-t border-slate-100 dark:border-slate-700">
+                                        <span class="font-bold text-slate-800 dark:text-white text-sm">চিত্র: বৃক্কের লম্বচ্ছেদ (Anatomy of the Kidney)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    questionsContainer.appendChild(qCard);
+                    return;
+                }
+
+                if (q.isStimulusOnly) {
+                    qCard.className = "bg-gradient-to-br from-indigo-50/70 to-blue-50/70 dark:from-indigo-950/40 dark:to-slate-900 border border-indigo-200 dark:border-indigo-800 rounded-2xl p-6 md:p-8 shadow-md text-center space-y-4";
+                    qCard.innerHTML = `
+                        <div class="space-y-3">
+                            <span class="inline-block px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded-full shadow-sm">উদ্দীপক (সৃজনশীল অনুচ্ছেদ ও চিত্র)</span>
+                            <h4 class="font-bold text-slate-800 dark:text-white text-base md:text-lg">নিচের উদ্দীপকটি ও নেফ্রনের গঠনচিত্র লক্ষ্য কর এবং ৩৯ ও ৪০ নং প্রশ্নের উত্তর দাও:</h4>
+                            <div class="flex justify-center my-4">
+                                <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-inner border border-indigo-100 dark:border-indigo-900 inline-block">
+                                    <svg viewBox="0 0 280 340" class="w-full max-w-xs md:max-w-sm h-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M 120 50 C 90 50, 70 75, 90 100 C 110 120, 140 110, 150 90" fill="none" stroke="#3b82f6" stroke-width="4" stroke-linecap="round"/>
+                                        <circle cx="120" cy="80" r="14" fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="3,3"/>
+                                        <path d="M 70 75 L 95 80" stroke="#ef4444" stroke-width="3"/>
+                                        <path d="M 95 80 L 75 90" stroke="#3b82f6" stroke-width="3"/>
+                                        <path d="M 150 90 Q 180 80, 180 110 Q 180 130, 150 130 Q 130 130, 140 150" fill="none" stroke="#10b981" stroke-width="5" stroke-linecap="round"/>
+                                        <path d="M 140 150 L 140 250 Q 140 280, 170 280 Q 200 280, 200 250 L 200 150" fill="none" stroke="#f59e0b" stroke-width="4" stroke-linecap="round"/>
+                                        <path d="M 200 150 Q 230 140, 220 170 Q 210 190, 240 190" fill="none" stroke="#8b5cf6" stroke-width="4" stroke-linecap="round"/>
+                                        <path d="M 230 110 L 230 300" fill="none" stroke="#ec4899" stroke-width="6" stroke-linecap="round"/>
+                                        <text x="35" y="55" font-size="10" fill="#3b82f6" font-weight="bold">বোমম্যান্স ক্যাপসুল</text>
+                                        <line x1="95" y1="65" x2="68" y2="58" stroke="#3b82f6" stroke-width="1.5"/>
+                                        <text x="180" y="50" font-size="10" fill="#ef4444" font-weight="bold">গ্লোমেরুলাস</text>
+                                        <line x1="120" y1="70" x2="165" y2="53" stroke="#ef4444" stroke-width="1.5"/>
+                                        <text x="210" y="100" font-size="10" fill="#10b981" font-weight="bold">নিকটবর্তী প্যাঁচানো নালিকা</text>
+                                        <line x1="165" y1="105" x2="205" y2="105" stroke="#10b981" stroke-width="1.5"/>
+                                        <text x="10" y="220" font-size="10" fill="#f59e0b" font-weight="bold">হেনলির লুপ</text>
+                                        <line x1="135" y1="220" x2="70" y2="220" stroke="#f59e0b" stroke-width="1.5"/>
+                                        <text x="210" y="240" font-size="10" fill="#ec4899" font-weight="bold">সংগ্রাহক নালী</text>
+                                        <line x1="230" y1="240" x2="210" y2="240" stroke="#ec4899" stroke-width="1.5"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-600 dark:text-slate-400 font-medium">চিত্র: একটি সম্পূর্ণ নেফ্রনের গঠন</p>
+                        </div>
+                    `;
+                    questionsContainer.appendChild(qCard);
+                    return;
+                }
+
+                qCard.className = "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 md:p-8 shadow-sm space-y-4";
+                
+                let optionsHtml = '';
+                q.options.forEach((opt, optIndex) => {
+                    const isSelected = userAnswers[qIndex] === optIndex;
+                    optionsHtml += `
+                        <button type="button" data-q="${qIndex}" data-opt="${optIndex}" class="option-btn w-full text-left p-3.5 rounded-xl border transition duration-150 flex items-center space-x-3 font-medium ${
+                            isSelected 
+                                ? 'border-indigo-600 bg-indigo-50/80 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 shadow-sm' 
+                                : 'border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300'
+                        }">
+                            <span class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold ${
+                                isSelected ? 'bg-indigo-600 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300'
+                            }">${optionLetters[optIndex]}</span>
+                            <span class="flex-grow text-sm md:text-base">${opt}</span>
+                        </button>
+                    `;
+                });
+
+                qCard.innerHTML = `
+                    <h3 class="text-base md:text-lg font-semibold text-slate-800 dark:text-white leading-relaxed whitespace-pre-line">
+                        ${mcqCounter}. ${q.q}
+                    </h3>
+                    <div class="space-y-2.5 pt-2">
+                        ${optionsHtml}
+                    </div>
+                `;
+                mcqCounter++;
+                questionsContainer.appendChild(qCard);
+            });
+
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const qIdx = parseInt(btn.getAttribute('data-q'));
+                    const optIdx = parseInt(btn.getAttribute('data-opt'));
+                    userAnswers[qIdx] = optIdx;
+                    renderAllQuestions(); 
+                });
+            });
+        }
+
+        if (submitQuizBtn) {
+            submitQuizBtn.onclick = function() {
+                finishQuiz();
+            };
+        }
+
+        function finishQuiz() {
+            if (timerInterval) clearInterval(timerInterval);
+            
+            let correctCount = 0;
+            QUESTIONS.forEach((q, idx) => {
+                if (!q.isStimulusOnly && !q.isKidneyStimulus && userAnswers[idx] === q.ans) {
+                    correctCount++;
+                }
+            });
+
+            const totalMcqs = QUESTIONS.filter(q => !q.isStimulusOnly && !q.isKidneyStimulus).length;
+
+            const resultData = {
+                score: correctCount,
+                correct: correctCount,
+                wrong: totalMcqs - correctCount,
+                answers: userAnswers,
+                timestamp: new Date().toISOString()
+            };
+
+            localStorage.setItem(`quiz_result_${currentRoll}`, JSON.stringify(resultData));
+            showResultScreen();
+        }
+
+        function showResultScreen() {
+            screenQuiz.classList.add('hidden');
+            screenAuth.classList.add('hidden');
+            screenResult.classList.remove('hidden');
+            navRollBadge.classList.remove('hidden');
+            displayUserRoll.textContent = currentRoll;
+
+            const savedData = JSON.parse(localStorage.getItem(`quiz_result_${currentRoll}`));
+            resRoll.textContent = currentRoll;
+            sheetRoll.textContent = currentRoll;
+            resScore.textContent = `${savedData.score}/40`;
+            resCorrect.textContent = savedData.correct;
+            resWrong.textContent = savedData.wrong;
+
+            if (downloadSolveBtn) {
+                // Completely robust event listener for printing/downloading with multiple fallback triggers
+                downloadSolveBtn.onclick = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Try direct print first
+                    try {
+                        window.print();
+                    } catch (err) {
+                        console.warn("Print error:", err);
+                    }
+                    
+                    // Fallback: Create printable popup window if direct print fails or gets blocked
+                    setTimeout(() => {
+                        const printContent = document.getElementById('solve-sheet-section').innerHTML;
+                        const win = window.open('', '_blank', 'width=800,height=600');
+                        if (win) {
+                            win.document.write(`
+                                <!DOCTYPE html>
+                                <html lang="bn">
+                                <head>
+                                    <meta charset="UTF-8">
+                                    <title>Solve Sheet - Roll ${currentRoll}</title>
+                                    <script src="https://cdn.tailwindcss.com"><\/script>
+                                    <style>
+                                        body { background: white !important; color: black !important; font-family: 'Inter', sans-serif; padding: 20px; }
+                                    </style>
+                                </head>
+                                <body>
+                                    <div class="max-w-3xl mx-auto space-y-6">
+                                        <div class="text-center pb-4 border-b">
+                                            <h2 class="text-2xl font-bold">এইচএসসি জীববিজ্ঞান ২য় পত্র - সলভ শিট</h2>
+                                            <p class="text-sm text-gray-600">স্টুডেন্ট রোল: ${currentRoll} | প্রাপ্ত নম্বর: ${savedData.score}/40</p>
+                                        </div>
+                                        ${printContent}
+                                    </div>
+                                    <script>
+                                        window.onload = function() {
+                                            setTimeout(() => { window.print(); }, 500);
+                                        };
+                                    <\/script>
+                                </body>
+                                </html>
+                            `);
+                            win.document.close();
+                        }
+                    }, 300);
+                };
+            }
+
+            solveList.innerHTML = '';
+            const optionLetters = ['ক', 'খ', 'গ', 'ঘ'];
+            let solveCounter = 1;
+
+            QUESTIONS.forEach((q, idx) => {
+                if (q.isStimulusOnly || q.isKidneyStimulus) return;
+                
+                const userAns = savedData.answers[idx];
+                const isCorrect = userAns === q.ans;
+
+                const itemDiv = document.createElement('div');
+                itemDiv.className = `p-5 rounded-xl border ${
+                    isCorrect 
+                        ? 'border-emerald-200 bg-emerald-50/20 dark:bg-emerald-950/10' 
+                        : 'border-rose-200 bg-rose-50/20 dark:bg-rose-950/10'
+                } print-white-bg space-y-3`;
+
+                let optionsPrintHtml = '';
+                q.options.forEach((opt, optIdx) => {
+                    let optStyle = "text-slate-700 dark:text-slate-300";
+                    let badgeBg = "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300";
+                    
+                    if (optIdx === q.ans) {
+                        optStyle = "font-bold text-emerald-700 dark:text-emerald-400";
+                        badgeBg = "bg-emerald-600 text-white";
+                    } else if (userAns === optIdx && !isCorrect) {
+                        optStyle = "font-bold text-rose-600 dark:text-rose-400 line-through";
+                        badgeBg = "bg-rose-600 text-white";
+                    }
+
+                    optionsPrintHtml += `
+                        <div class="flex items-center space-x-2 py-1 px-2 rounded-lg ${optStyle}">
+                            <span class="w-6 h-6 rounded-md flex items-center justify-center text-xs font-bold ${badgeBg}">${optionLetters[optIdx]}</span>
+                            <span class="text-sm">${opt}</span>
+                        </div>
+                    `;
+                });
+
+                itemDiv.innerHTML = `
+                    <div class="font-bold text-slate-800 dark:text-white text-base whitespace-pre-line">${solveCounter}. ${q.q}</div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pl-2">
+                        ${optionsPrintHtml}
+                    </div>
+                    <div class="flex flex-wrap items-center justify-between text-xs pt-2 border-t border-slate-200 dark:border-slate-800">
+                        <span class="${isCorrect ? 'text-emerald-600 font-bold' : 'text-rose-600 font-bold'}">
+                            আপনার উত্তর: ${userAns !== undefined ? optionLetters[userAns] : 'দেওয়া হয়নি'} ${isCorrect ? '(সঠিক ✓)' : '(ভুল ✗)'}
+                        </span>
+                        <span class="text-emerald-600 font-bold">সঠিক উত্তর: ${optionLetters[q.ans]}</span>
+                    </div>
+                    <div class="text-xs bg-slate-50 dark:bg-slate-800 p-2.5 rounded-lg text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
+                        <strong>ব্যাখ্যা:</strong> ${q.exp}
+                    </div>
+                `;
+                solveCounter++;
+                solveList.appendChild(itemDiv);
+            });
+        }
+    </script>
+</body>
+</html>
